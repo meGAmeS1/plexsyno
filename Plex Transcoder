@@ -1,0 +1,10 @@
+#!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+declare -a new_args
+forbidden_text=":format=nv12"
+replacement_text="[0];[0]scale_vaapi=format=nv12"
+for param in "$@"; do
+  new_args+=("${param//$forbidden_text/$replacement_text}")
+done
+
+"${DIR}/Plex_Transcoder" "${new_args[@]}"
